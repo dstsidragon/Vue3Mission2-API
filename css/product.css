@@ -1,0 +1,7 @@
+body
+{
+    background: linear-gradient(360deg, rgba(229, 238, 245, 1)4%, rgba(208, 221, 247, 1)87%);
+    background: -moz-linear-gradient(360deg, rgba(229, 238, 245, 1)4%, rgba(208, 221, 247, 1)87%);
+    background: -webkit-linear-gradient(360deg, rgba(229, 238, 245, 1)4%, rgba(208, 221, 247, 1)87%);
+    background: -o-linear-gradient(360deg, rgba(229, 238, 245, 1)4%, rgba(208, 221, 247, 1)87%);
+}
