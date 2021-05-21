@@ -33,7 +33,7 @@ e.preventDefault();
                 document.cookie = `hexToken=${token}; expires=${new Date(expired)};username=${username.value}`;
                 document.cookie = `username=${(username.value).split("@")[0]}; expires=${new Date(expired)};`;
                 
-                // window.location="product.html";
+                window.location="product.html";
             }else{
                 alert(`${res.data.message}!!請檢查帳號密碼!`);
                 password.value= "";

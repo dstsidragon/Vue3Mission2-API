@@ -74,41 +74,27 @@
 
   <div class="container mt_5p ">
     <div id="app" class="container">
-      <table class="table mt-4">
-        <thead>
-          <tr>
-            <th>產品名稱</th>
-            <th width="120">
+      <table class="table mt-4 row">
+        <thead class='co1-12'>
+          <tr class="row">
+            <th class="col-3">產品圖片</th>
+            <th class="col-2">產品名稱</th>
+            <th class="col-2" width="120">
               原價
             </th>
-            <th width="120">
+            <th  class="col-2">
               售價
             </th>
-            <th width="150">
+            <th class="col-2">
               是否啟用
             </th>
-            <th width="120">
+            <th class="col-1">
               刪除
             </th>
           </tr>
         </thead>
         <tbody id="productList">
-          <tr>
-            <td>範例標題</td>
-            <td width="120">
-              範例原價
-            </td>
-            <td width="120">
-              範例價格
-            </td>
-            <td width="100">
-              <span class="">範例啟用狀態</span>
-            </td>
-            <td width="120">
-              <button type="button" class="btn btn-sm btn-outline-danger move deleteBtn" data-action="remove"
-                data-id=""> 刪除 </button>
-            </td>
-          </tr>
+          
         </tbody>
       </table>
       <p>目前有 <span id="productCount">0</span> 項產品</p>
