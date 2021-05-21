@@ -23,7 +23,7 @@ e.preventDefault();
         axios.post(`${api_url}/admin/signin`,adminInfo)
     .then(
         res=>{
-            console.log(res);
+            // console.log(res);
         
             if(res.data.success){
                 alert(`${res.data.message}!!`);

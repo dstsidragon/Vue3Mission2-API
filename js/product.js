@@ -1,10 +1,10 @@
 
 const user = document.getElementById('user');
 const signOut = document.getElementById('signOut');
-const chkVerification = document.getElementById("chkVerification");
 let productData ;
 const productList = document.getElementById("productList");
 const productCount = document.getElementById("productCount");
+const API_Path =document.getElementById("API_Path");
 //取得token
 const token = document.cookie.replace(/(?:(?:^|.*;\s*)hexToken\s*\=\s*([^;]*).*$)|^.*$/, "$1");
 axios.defaults.headers.common['Authorization'] = token;
@@ -37,10 +37,17 @@ const getProduct = ()=>{
     axios.get(`${api_url}/api/${api_path}/products`)
     .then(
         res=>{
-            console.log(res);
+            // console.log(res);
+            // console.log(res.data.success);
+            if(res.data.success){
             productData = res.data.products;
             // console.log(productData);
             render();
+        }else{
+            alert('驗證錯誤，請重新登入!');
+            console.log(btnVerification);
+            // window.location="index.html";
+        }
         }
     ).catch(
         err=>{
@@ -66,14 +73,11 @@ const render = ()=>{
           <td class="col-2 d-flex align-items-center">
             ${item.price}
           </td>
-          <td  class="col-2 d-flex align-items-center">
-          <div class="onoffswitch">
-    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" tabindex="0" ${item.is_enabled==1?"checked":""}>
-    <label class="onoffswitch-label" for="myonoffswitch"></label>
-</div>
+          <td  class="col-1 d-flex align-items-center">
+          <input class="carNum" type="number" value="1"  id="productNum_${item.id}">
           </td>
-          <td class="col-1 d-flex align-items-center">
-            <button type="button" id="del_${item.id}" class="btn btn-sm btn-outline-danger move deleteBtn" data-action="remove" data-id="${item.id}"> 刪除 </button>
+          <td class="col-2 d-flex align-items-center">
+            <button type="button" id="car_${item.id}"  class="btn btn-sm btn-outline-info move deleteBtn" data-action="remove" data-id="${item.id}"> 加入購物車 </button>
           </td>
         </tr>
       `;
@@ -86,36 +90,18 @@ const render = ()=>{
 
 //動態賦予事件
 const addEvent = ()=>{
-    // 刪除事件
+    // 購物車事件
     productData.forEach((item,i) => {
-        document.getElementById(`del_${item.id}`).addEventListener("click",delOneData,false);
+        document.getElementById(`car_${item.id}`).addEventListener("click",addCart,false);
     })
 };
 
-//刪除單一資料
-const delOneData= (e)=>{
-    const delId=e.target.dataset.id;
-    axios.delete(`${api_url}/api/${api_path}/admin/product/${delId}`)
-    .then(
-        res=>{
-            console.log(res);
-            if(res.data.success){
-                alert(`${res.data.message}`);
-                getProduct();
-    }else{
-        alert('驗證錯誤，請重新登入!')
-        window.location="index.html";
-    }
-        }
-    ).catch(
-        err=>{
-            console.log(err)
-        }
-    )
+//加入購物車
+const addCart= (e)=>{
+   alert("先不要點啦~ 我還沒做，晚點補上QQ")
     // 刷新畫面
     render();
 };
-
 
 
 
