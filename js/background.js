@@ -155,6 +155,91 @@ const productEnable = (e)=>{
     )
 };
 
+
+
+
+//建立產品
+const bg_image  = document.getElementById("bg_image");
+const bg_image1  = document.getElementById("bg_image1");
+const bg_image2  = document.getElementById("bg_image2");
+const bg_image3  = document.getElementById("bg_image3");
+const bg_image4  = document.getElementById("bg_image4");
+const bg_image5  = document.getElementById("bg_image5");
+const bg_add_title  = document.getElementById("bg_add_title");
+const bg_add_description  = document.getElementById("bg_add_description");
+const bg_add_content  = document.getElementById("bg_add_content");
+const bg_add_category  = document.getElementById("bg_add_category");
+const bg_add_unit  = document.getElementById("bg_add_unit");
+const bg_add_origin_price  = document.getElementById("bg_add_origin_price");
+const bg_add_price  = document.getElementById("bg_add_price");
+const bg_add_image  = document.getElementById("bg_add_image");
+const bg_add_image1  = document.getElementById("bg_add_image1");
+const bg_add_image2  = document.getElementById("bg_add_image2");
+const bg_add_image3  = document.getElementById("bg_add_image3");
+const bg_add_image4  = document.getElementById("bg_add_image4");
+const bg_add_image5  = document.getElementById("bg_add_image5");
+const bg_add_is_enabled  = document.getElementById("bg_add_is_enabled");
+const bg_add_send  = document.getElementById("bg_add_send");
+
+
+const addPrductData = ()=>{
+    if(bg_add_title.value!==""&&bg_add_category.value!==""
+    &&bg_add_unit.value!==""&&bg_add_origin_price.value!==""
+    &&bg_add_price.value!==""){
+        console.log(1);
+        
+        axios.post(`${api_url}/api/${API_Path}/admin/product`, {
+            "data": {
+              "title": bg_add_title.value, 
+              "category": bg_add_category.value,
+              "origin_price":bg_add_origin_price.value,
+              "price": bg_add_price.value,
+              "unit": bg_add_unit.value,
+              "description": bg_add_description.value,
+              "content": bg_add_content.value,
+              "is_enabled": bg_add_is_enabled.value,
+              "imageUrl" :bg_add_image.value,
+              "imagesUrl": [
+                bg_add_image1.value,
+                bg_add_image2.value,
+                bg_add_image3.value,
+                bg_add_image4.value,
+                bg_add_image5.value
+              ]
+            }
+          })
+        .then(
+            res=>{
+                console.log(res)
+            }
+        )
+        .catch(
+            err=>{
+                console.dir(err)
+            }
+        )
+
+    }else{
+        alert("標題、分類、單位、原價、售價為必填欄位!");
+    }
+};
+bg_add_send.addEventListener("click",addPrductData,false);
+
+//改變圖片
+const chgImage = ()=>{bg_image.src = bg_add_image.value};
+bg_add_image.addEventListener("change",chgImage,false);
+const chgImage1 = ()=>{bg_image1.src = bg_add_image1.value};
+bg_add_image1.addEventListener("change",chgImage1,false);
+const chgImage2 = ()=>{bg_image2.src = bg_add_image2.value};
+bg_add_image2.addEventListener("change",chgImage2,false);
+const chgImage3 = ()=>{bg_image3.src = bg_add_image3.value};
+bg_add_image3.addEventListener("change",chgImage3,false);
+const chgImage4 = ()=>{bg_image4.src = bg_add_image4.value};
+bg_add_image4.addEventListener("change",chgImage4,false);
+const chgImage5 = ()=>{bg_image5.src = bg_add_image5.value};
+bg_add_image5.addEventListener("change",chgImage5,false);
+
+
 // 初始化
 function init(){
     getProduct();
