@@ -1,48 +1,42 @@
 
-const user = document.getElementById('user');
-const signOut = document.getElementById('signOut');
-let productData ;
-const productList = document.getElementById("productList");
-const productCount = document.getElementById("productCount");
 const API_Path =document.getElementById("API_Path");
-//取得token
-const token = document.cookie.replace(/(?:(?:^|.*;\s*)hexToken\s*\=\s*([^;]*).*$)|^.*$/, "$1");
-axios.defaults.headers.common['Authorization'] = token;
-// 讀取使用者名稱
-const userName = document.cookie.replace(/(?:(?:^|.*;\s*)username\s*\=\s*([^;]*).*$)|^.*$/, "$1");
-user.innerHTML = userName;
 
-
-// 登出
-const signOutAdmin =(e)=>{
-    axios.post(`${api_url}/logout`)
-    .then(
-        res=>{
-            // console.log(res);
-            if(res.data.success){
-                alert(res.data.message);
-                window.location="index.html";
-            }else{
-                alert("未知的錯誤!");
-                window.location="product.html";
-            }
-        }
-    )
-};
-signOut.addEventListener("click",signOutAdmin,false);
-
-
-//取得商品列表
-const getProduct = ()=>{
+const app = {
+    data:{
+        //取得token
+        token: document.cookie.replace(/(?:(?:^|.*;\s*)hexToken\s*\=\s*([^;]*).*$)|^.*$/, "$1"),
+        // 讀取使用者名稱
+        userName: document.cookie.replace(/(?:(?:^|.*;\s*)username\s*\=\s*([^;]*).*$)|^.*$/, "$1"),
+        productData: [],
+        dataLength: 0,
+    },
+     // 登出
+     signOutAdmin(e) {
+        axios.post(`${api_url}/logout`)
+            .then(
+                res => {
+                    // console.log(res);
+                    if (res.data.success) {
+                        alert(res.data.message);
+                        window.location = "index.html";
+                    } else {
+                        alert("未知的錯誤!");
+                        window.location = "product.html";
+                    }
+                }
+            )
+    },
+    //取得商品列表
+getProduct(){
     axios.get(`${api_url}/api/${api_path}/products`)
     .then(
         res=>{
             // console.log(res);
             // console.log(res.data.success);
             if(res.data.success){
-            productData = res.data.products;
+            this.data.productData = res.data.products;
             // console.log(productData);
-            render();
+            this.render();
         }else{
             alert('驗證錯誤，請重新登入!');
             console.log(btnVerification);
@@ -54,14 +48,14 @@ const getProduct = ()=>{
             console.log(err);
         }
     )
-};
-
+    signOut.addEventListener("click",this.signOutAdmin,false);
+},
 //呈現資料在畫面
-const render = ()=>{
+ render(){
     let str ="";
-    let dataLength=productData.length;
+    this.data.dataLength=this.data.productData.length;
 
-    productData.forEach((item,i) => {
+    this.data.productData.forEach((item,i) => {
         str += `
         <tr class="row ">
         
@@ -82,32 +76,51 @@ const render = ()=>{
         </tr>
       `;
     });
-    productList.innerHTML = str;
-    productCount.innerHTML = dataLength;
+    document.getElementById("productList").innerHTML = str;
+    document.getElementById("productCount").innerHTML = this.data.dataLength;
     //賦予事件
-    addEvent();
-};
+    this.addEvent();
+},
 
 //動態賦予事件
-const addEvent = ()=>{
+addEvent (){
     // 購物車事件
-    productData.forEach((item,i) => {
-        document.getElementById(`car_${item.id}`).addEventListener("click",addCart,false);
+    this.data.productData.forEach((item,i) => {
+        document.getElementById(`car_${item.id}`).addEventListener("click",this.addCart,false);
     })
-};
+},
 
 //加入購物車
-const addCart= (e)=>{
+addCart(e){
    alert("先不要點啦~ 我還沒做，晚點補上QQ")
     // 刷新畫面
-    render();
-};
+    app.render();
+},
 
 
 
 // 初始化
-function init(){
-    getProduct();
+init(){
+    this.getProduct();
+
+},
+     // 初始化
+    init() {
+        //設定token
+        axios.defaults.headers.common['Authorization'] = this.data.token;
+        document.getElementById('user').innerHTML = this.data.userName;
+        //取得產品
+        this.getProduct();
+
+        //事件
+        
+
+    },
 
 };
-init();
+app.init();
+
+
+
+
+
