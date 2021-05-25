@@ -1,15 +1,3 @@
-const bg_image = document.getElementById("bg_image");
-const bg_image1 = document.getElementById("bg_image1");
-const bg_image2 = document.getElementById("bg_image2");
-const bg_image3 = document.getElementById("bg_image3");
-const bg_image4 = document.getElementById("bg_image4");
-const bg_image5 = document.getElementById("bg_image5");
-const productList = document.getElementById("productList");
-const productCount = document.getElementById("productCount");
-const btnVerification = document.getElementById("btn-verification");
-const API_Path = document.getElementById("API_Path");
-
-
 
 
 
@@ -51,7 +39,6 @@ const app = {
                         this.render();
                     } else {
                         alert('驗證錯誤，請輸入正確path碼!');
-                        console.log(btnVerification);
                         // window.location="index.html";
                     }
                 }
@@ -92,8 +79,8 @@ const app = {
         </tr>
       `;
         });
-        productList.innerHTML = str;
-        productCount.innerHTML = dataLength;
+        document.getElementById("productList").innerHTML = str;
+        document.getElementById("productCount").innerHTML = dataLength;
         //賦予事件
         this.addEvent();
     },
@@ -132,6 +119,7 @@ const app = {
     },
     //驗證
     chkPath() {
+        const API_Path = document.getElementById("API_Path");
         api_path = API_Path.value;
         console.log(api_path);
         app.getProduct();
@@ -244,12 +232,12 @@ const app = {
         //事件
         document.getElementById("chkVerification").addEventListener("click", this.chkPath, false);
         bg_add_send.addEventListener("click", this.addPrductData, false);
-        bg_add_image.addEventListener("change", this.chgImage, false);
-        bg_add_image1.addEventListener("change", this.chgImage1, false);
-        bg_add_image2.addEventListener("change", this.chgImage2, false);
-        bg_add_image3.addEventListener("change", this.chgImage3, false);
-        bg_add_image4.addEventListener("change", this.chgImage4, false);
-        bg_add_image5.addEventListener("change", this.chgImage5, false);
+        document.getElementById("bg_image").addEventListener("change", this.chgImage, false);
+        document.getElementById("bg_image1").addEventListener("change", this.chgImage1, false);
+        document.getElementById("bg_image2").addEventListener("change", this.chgImage2, false);
+        document.getElementById("bg_image3").addEventListener("change", this.chgImage3, false);
+        document.getElementById("bg_image4").addEventListener("change", this.chgImage4, false);
+        document.getElementById("bg_image5").addEventListener("change", this.chgImage5, false);
 
     },
 };

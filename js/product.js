@@ -1,5 +1,5 @@
 
-const API_Path =document.getElementById("API_Path");
+
 
 const app = {
     data:{
